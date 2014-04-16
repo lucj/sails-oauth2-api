@@ -35,14 +35,14 @@ WARNING: still under development - application not functional yet.
 - OAuth service
   api/services/OAuthServices.js: defining the OAuth server and the exchange strategy
 
-- TODO
+- **TODO**
   Make the link, through sailsjs policies,  between the oauth endPoints and the grant strategies (Resource Owner Password / Authorization Code)
-  How to use one strategy depending upon the client's type (trusted / untrusted) ?
+  Still not sure How to use one strategy depending upon the client's type (trusted / untrusted) ?
 
 Credits
 -------
 
-Several projects are integrated into this one:
+Several projects were used to start this one:
 
 * http://aleksandrov.ws/2013/09/12/restful-api-with-nodejs-plus-mongodb/
 * https://github.com/aaron524/sails-oauth2-provider-example

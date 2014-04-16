@@ -4,6 +4,17 @@ var passport            = require('passport');
 // Create OAuth 2.0 server
 var server = oauth2orize.createServer();
 
+server.serializeClient(function(client, done) {
+  return done(null, client.id);
+});
+
+server.deserializeClient(function(id, done) {
+Client.findOne(id, function(err, client) {
+  if (err) { return done(err); }
+    return done(null, client);
+  });
+});
+
 // Generate authorization code
 server.grant(oauth2orize.grant.code(function(client, redirectURI, user, ares, done) {
   AuthCode.create({

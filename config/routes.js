@@ -10,11 +10,14 @@
 
 module.exports.routes = {
 
-  // Resources endPoints
+  // Client authorization endPoints 
 
-  '/api/info': {
-    controller: 'InfoController',
-    action: 'index'
+  '/login': {
+    view: 'login'
+  },
+  'post /login': {
+    controller: 'Auth',
+    action: 'process'
   },
 
   // OAuth endPoints
@@ -27,4 +30,12 @@ module.exports.routes = {
     controller: 'OAuthController',
     action: 'token'
   },
+
+  // Resources endPoints
+
+  '/api/info': {
+    controller: 'InfoController',
+    action: 'index'
+  },
+
 }
