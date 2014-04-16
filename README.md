@@ -30,14 +30,14 @@ WARNING: still under development - application not functional yet.
   * OAuthController: controller exposing the OAuth endPoints (/oauth/authorize, /oauth/token)
 
 - authentication
-  config/passport.js: defining passport strategy
+  * config/passport.js: defining passport strategy
 
 - OAuth service
-  api/services/OAuthServices.js: defining the OAuth server and the exchange strategy
+  * api/services/OAuthServices.js: defining the OAuth server and the exchange strategy
 
-- TODO
-  Create the links (ideally using sailsjs policies),  between the oauth endPoints and the grant strategies ("Resource Owner Password" and "Authorization Code").  
-  Still not sure how to automatically select one of those 2 strategies depending upon the client's type (trusted / untrusted) ?
+- **TODO**
+  * Create the links (ideally using sailsjs policies),  between the oauth endPoints and the grant strategies ("Resource Owner Password" and "Authorization Code").  
+  * Still not sure how to automatically select one of those 2 strategies depending upon the client's type (trusted / untrusted) ?
 
 Credits
 -------
