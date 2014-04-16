@@ -35,9 +35,9 @@ WARNING: still under development - application not functional yet.
 - OAuth service
   api/services/OAuthServices.js: defining the OAuth server and the exchange strategy
 
-- **TODO**
-  Make the link, through sailsjs policies,  between the oauth endPoints and the grant strategies (Resource Owner Password / Authorization Code)
-  Still not sure How to use one strategy depending upon the client's type (trusted / untrusted) ?
+- *TODO*
+  Create the links (ideally using sailsjs policies),  between the oauth endPoints and the grant strategies ("Resource Owner Password" and "Authorization Code").  
+  Still not sure how to automatically select one of those 2 strategies depending upon the client's type (trusted / untrusted) ?
 
 Credits
 -------
