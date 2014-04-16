@@ -22,19 +22,13 @@ module.exports = {
     var server = OAuthService;
 
     // Check the clientId
-    // If client is trusted => use 
+    // If client is trusted => use resource owner password grant
+    // If client is not trusted => use authorization code grant
 
     console.log(server);
 
     res.send({"msg": "calling authorize"});
   },
-
-// token endpoint
-// exports.token = [
-//    passport.authenticate(['basic', 'oauth2-client-password'], { session: false }),
-//    server.token(),
-//    server.errorHandler()
-// ]
 
   token: function(req, res){
     res.send({"msg": "calling token"});
