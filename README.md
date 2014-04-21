@@ -27,13 +27,12 @@ WARNING: still under development - application not functional yet.
 
 - controllers
   * InfoController: a basic controller that will be called to test the OAuth mecanism
-  * OAuthController: controller exposing the OAuth endPoints (/oauth/authorize, /oauth/token)
 
 - authentication
   * config/passport.js: defining passport strategy
 
 - OAuth service
-  * api/services/OAuthServices.js: defining the OAuth server and the exchange strategy
+  * config/oauth2.js defining the OAuth server and the exchange strategy
 
 - **TODO**
   * Create the links (ideally using sailsjs policies),  between the oauth endPoints and the grant strategies ("Resource Owner Password" and "Authorization Code").  
