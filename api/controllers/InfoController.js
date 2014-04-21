@@ -19,7 +19,7 @@ module.exports = {
     
   index: function(req,res)
   {
-    res.json({"msg":"if you see this you successfully went through OAuth2 authorization process"});
+    res.json({"msg":"if you see this you successfully went through OAuth2 authorization process (well, in the future this should work :) )"});
   },  
 
   /**

@@ -16,9 +16,10 @@ module.exports.policies = {
 
   // Default policy for all controllers and actions (`true` allows public access) 
   // '*': 'apiCall',
-  //InfoController: {
-  //  'index': 'apiCall'
-  // }
+
+  InfoController: {
+    'index': 'oauthBearer'
+  }
 
 };
 

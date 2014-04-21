@@ -20,17 +20,6 @@ module.exports.routes = {
     action: 'process'
   },
 
-  // OAuth endPoints
-
-  '/oauth/authorize': {
-    controller: 'OAuthController',
-    action: 'authorize'
-  },
-  '/oauth/token': {
-    controller: 'OAuthController',
-    action: 'token'
-  },
-
   // Resources endPoints
 
   '/api/info': {

@@ -134,4 +134,26 @@ server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken,
     });
 }));
 
-exports.server = server;
+module.exports = {
+ express: {
+    customMiddleware: function(app){
+
+      // Initialize passport
+      app.use(passport.initialize());
+      app.use(passport.session());
+
+      // OAuth authorize endPoints
+      //TODO
+      // app.get('/oauth/authorize', ... 
+      // app.post('/oauth/authorize/decision', ...
+
+      // OAuth token endPoint
+      app.post('/oauth/token',
+        passport.authenticate(['basic', 'oauth2-client-password'], { session: false }),
+        server.token(),
+        server.errorHandler()
+      );
+
+    }
+ }
+}; 

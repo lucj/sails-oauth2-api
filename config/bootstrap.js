@@ -11,11 +11,11 @@
 module.exports.bootstrap = function (cb) {
 
   // Create a user
-  User.findOne({email: 'luc@gmail.com'}, function(err, user){
+  User.findOne({email: 'me@gmail.com'}, function(err, user){
     if(!user){
       User.create({
-  	email: 'luc@gmail.com',
-  	password: 'lucluc',
+  	email: 'me@gmail.com',
+  	password: 'testuser',
       }).done(function(err,user){
   	console.log("Created user: " + user.email);
       });
@@ -36,6 +36,8 @@ module.exports.bootstrap = function (cb) {
             console.log(err.message);
           } else {
             console.log("trustedTestClient created");
+            console.log("clientId:" + client.clientId);
+            console.log("clientSecret:" + client.clientSecret);
           }
         });
       }
@@ -55,6 +57,8 @@ module.exports.bootstrap = function (cb) {
             console.log(err.message);
           } else {
             console.log("untrustedTestClient created");
+            console.log("clientId:" + client.clientId);
+            console.log("clientSecret:" + client.clientSecret);
           }
         });
       }

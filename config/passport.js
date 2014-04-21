@@ -73,6 +73,9 @@ var bcryt = require('bcrypt'),
 passport.use(new BasicStrategy(
 
 function (username, password, done) {
+
+console.log("username:" + username);
+
     User.findOne({
         email: username
     }, function (err, user) {
@@ -141,12 +144,13 @@ passport.use(new BearerStrategy(
   }
 ));
 
+/*
 module.exports = {
  express: {
     customMiddleware: function(app){
-      console.log('express midleware for passport');
       app.use(passport.initialize());
       app.use(passport.session());
     }
   }
 };
+*/
