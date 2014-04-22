@@ -1,4 +1,5 @@
-var bcryt = require('bcrypt'),
+var bcrypt = require('bcrypt'),
+    moment = require('moment'),
     passport = require('passport'),
     BearerStrategy = require('passport-http-bearer').Strategy,
     BasicStrategy = require('passport-http').BasicStrategy,
@@ -74,11 +75,10 @@ passport.use(new BasicStrategy(
 
 function (username, password, done) {
 
-console.log("username:" + username);
-
     User.findOne({
         email: username
     }, function (err, user) {
+
         if (err) {
             return done(err);
         }
@@ -102,8 +102,9 @@ console.log("username:" + username);
 passport.use(new ClientPasswordStrategy(
 
 function (clientId, clientSecret, done) {
+
     Client.findOne({
-        id: clientId
+        clientId: clientId
     }, function (err, client) {
         if (err) {
             return done(err);
@@ -131,26 +132,27 @@ passport.use(new BearerStrategy(
     AccessToken.findOne({token:accessToken}, function(err, token) {
       if (err) { return done(err); }
       if (!token) { return done(null, false); }
-      var info = {scope: '*'}
-      User.findOne({
-          id: token.userId
-      }).done(
-      function (err, user) {
-        User.findOne({
-            id: token.userId
-        },done(err,user,info));
-      });
+
+      var now = moment().unix();
+      var creationDate = moment(token.createdAt).unix();
+
+      if( now - creationDate > sails.config.oauth.tokenLife ) {
+        AccessToken.destroy({ token: accessToken }, function (err) {
+          if (err) return done(err);
+         });
+         console.log('Token expired');
+         return done(null, false, { message: 'Token expired' });
+       }
+
+       var info = {scope: '*'}
+       User.findOne({
+         id: token.userId
+       })
+       .done(function (err, user) {
+         User.findOne({
+           id: token.userId
+         },done(err,user,info));
+       });
     });
   }
 ));
-
-/*
-module.exports = {
- express: {
-    customMiddleware: function(app){
-      app.use(passport.initialize());
-      app.use(passport.session());
-    }
-  }
-};
-*/

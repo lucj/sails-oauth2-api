@@ -19,6 +19,8 @@ module.exports.bootstrap = function (cb) {
       }).done(function(err,user){
   	console.log("Created user: " + user.email);
       });
+    } else {
+      console.log('User already exists');
     }
   });
 
@@ -40,6 +42,8 @@ module.exports.bootstrap = function (cb) {
             console.log("clientSecret:" + client.clientSecret);
           }
         });
+      } else {
+        console.log('trustedTestClient already exists');
       }
     }
   }); 
@@ -61,6 +65,8 @@ module.exports.bootstrap = function (cb) {
             console.log("clientSecret:" + client.clientSecret);
           }
         });
+      } else {
+        console.log('untrustedTestClient already exists');
       }
     }
   }); 

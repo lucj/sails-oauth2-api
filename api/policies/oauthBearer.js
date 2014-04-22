@@ -18,7 +18,8 @@ module.exports = function(req, res, next) {
 	    {
 	        if ((err) || (!user))
 	        {
-	            res.redirect('/');
+	            res.send(401);
+	            // res.redirect('/');
 	            return;
 	        }
             delete req.query.access_token;
