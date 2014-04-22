@@ -1,6 +1,7 @@
 var oauth2orize = require('oauth2orize'),
     passport    = require('passport'),
-    bcrypt      = require('bcrypt');
+    bcrypt      = require('bcrypt'),
+    trustedClientPolicy = require('../api/policies/isTrustedClient.js');
 
 // Create OAuth 2.0 server
 var server = oauth2orize.createServer();
@@ -138,6 +139,9 @@ console.log("exchange refresh token");
     });
 }));
 
+
+
+
 module.exports = {
  express: {
     customMiddleware: function(app){
@@ -153,6 +157,7 @@ module.exports = {
 
       // OAuth token endPoint
       app.post('/oauth/token',
+        trustedClientPolicy,
         passport.authenticate(['basic', 'oauth2-client-password'], { session: false }),
         server.token(),
         server.errorHandler()
