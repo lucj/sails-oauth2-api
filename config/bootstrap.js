@@ -15,12 +15,16 @@ module.exports.bootstrap = function (cb) {
     if(!user){
       User.create({
   	email: 'me@gmail.com',
-  	password: 'testuser',
+  	password: 'password',
       }).done(function(err,user){
-  	console.log("Created user: " + user.email);
+  	console.log("Default user created");
+        console.log("- username: " + user.email);
+        console.log("- password: password");
       });
     } else {
-      console.log('User already exists');
+      console.log('Default user already exists');
+      console.log("- username: " + user.email);
+      console.log("- password: password");
     }
   });
 
@@ -31,19 +35,21 @@ module.exports.bootstrap = function (cb) {
     } else {
       if(!client){
         Client.create({name : 'trustedTestClient',
-                       redirectURI: 'http://localhost:1338',
+                       redirectURI: 'http://localhost:' + sails.config.port,
                        trusted: true
         }).done(function(err, client){
           if(err){
             console.log(err.message);
           } else {
             console.log("trustedTestClient created");
-            console.log("clientId:" + client.clientId);
-            console.log("clientSecret:" + client.clientSecret);
+            console.log("- client_id: " + client.clientId);
+            console.log("- client_secret: " + client.clientSecret);
           }
         });
       } else {
         console.log('trustedTestClient already exists');
+        console.log("- client_id: " + client.clientId);
+        console.log("- client_secret: " + client.clientSecret);
       }
     }
   }); 
@@ -55,18 +61,20 @@ module.exports.bootstrap = function (cb) {
     } else {
       if(!client){
         Client.create({name : 'untrustedTestClient',
-                       redirectURI: 'http://localhost:1338'
+                       redirectURI: 'http://localhost:' + sails.config.port
         }).done(function(err, client){
           if(err){
             console.log(err.message);
           } else {
             console.log("untrustedTestClient created");
-            console.log("clientId:" + client.clientId);
-            console.log("clientSecret:" + client.clientSecret);
+            console.log("- client_id: " + client.clientId);
+            console.log("- client_secret: " + client.clientSecret);
           }
         });
       } else {
         console.log('untrustedTestClient already exists');
+        console.log("- client_id: " + client.clientId);
+        console.log("- client_secret: " + client.clientSecret);
       }
     }
   }); 
