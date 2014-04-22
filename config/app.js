@@ -1,6 +1,6 @@
 module.exports = {
   appName: 'OAuth2 Sails API',
-  port: 1340,
+  port: 1337,
   oauth: {
     tokenLife: 3600
   } 

@@ -16,7 +16,8 @@ Several purposes of this application:
 Status
 ------
 
-WARNING: still under development - application not functional yet.
+- flows
+  * only resource owner password flow is currently available
 
 - models implemented
   * User: resource owner
@@ -34,9 +35,29 @@ WARNING: still under development - application not functional yet.
 - OAuth service
   * config/oauth2.js defining the OAuth server and the exchange strategy
 
-- **TODO**
-  * Create the links (ideally using sailsjs policies),  between the oauth endPoints and the grant strategies ("Resource Owner Password" and "Authorization Code").  
-  * Still not sure how to automatically select one of those 2 strategies depending upon the client's type (trusted / untrusted) ?
+Details
+-------
+
+When lifting the sails application, a default user and 2 defaults clients are created (among which one is trusted and the other is not).
+In the console, the client_id and client_secret of each client are displayed and the default user credential as well.
+
+- Resource owner password flow
+
+Just issue the following curl request:
+
+curl -XPOST "http://localhost:1340/oauth/token" -d "grant_type=password&client_id=CLIENT_ID&client_secret=CLIENT_SECRET&username=USERNAME&password=PASSWORD"
+
+And receive an access token (if the trusted client credential were used).
+
+{"access_token":"UeCnysUiLLzxS6tCKkEeMnRxvTsyq5bri9AFUeQV4OEOqoketVZd7HVQpjOeWOLwBhwaWokFXdBsQ34oU0Kcafq8cHgS3lu2Si6I2xvKifo46F8HiU18aicWTzizNocfHVKYYFEhcYftEVEmyvrkcPt1loaAHcKAhY8IzobgkTiMh6ZTfAdQKWn7pM0iS1sojW8H0v6pL9xLNRj0lwbTNHcMDWwdfCCGEq9NuZAiFuKspOg5LeLYKSXxm0vQAHFr","refresh_token":"zu1dbMCuP46NS2hqjmq1ZFPzNrVsSpM9BvFCOizo3GmrE9jRwrY26m1b6JK3Jbud4ejb2xw3MZZc56snT15Y9hWXsmvGSOyKufS0cu8ZKGfVwUjwBcyu7SkcZCcCLUDgq5BJzFJ9ZBv6TKwltdUb8LQAEcDSLLRAXbIHsorStKW0CXqNuL9iSVdKgTXMVkiT2ik8Z4PUMf3daLQSMvwPK69srvYttFNpM3mUMOC2Y2U0AmiRDLYIr3Nsid0hwGsi","expires_in":3600,"token_type":"Bearer"}
+
+If the curl command above is issued with the client_id of the untrusted client (third party client applications that require access to the resource), a 401 error is raised.
+
+Note: the refresh token mecanism is not fully functional yet
+
+- Authorization code grant
+
+Note: this will be done once the Resource owner flow is fully functional
 
 Credits
 -------
