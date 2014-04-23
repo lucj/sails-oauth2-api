@@ -46,11 +46,16 @@ In the console, the client_id and client_secret of each client are displayed and
 
   * Issue the following curl request to get an access token
 
+```
 curl -XPOST "http://localhost:1337/oauth/token" -d "grant_type=password&client_id=CLIENT_ID&client_secret=CLIENT_SECRET&username=USERNAME&password=PASSWORD"
+```
 
-    {"access_token":"UeCnysUiLLzxS6tCKkEeMnRxvTsyq5bri9AFUeQV4OEOqoketVZd7HVQpjOeWOLwBhwaWokFXdBsQ34oU0Kcafq8cHgS3lu2Si6I2xvKifo46F8HiU18aicWTzizNocfHVKYYFEhcYftEVEmyvrkcPt1loaAHcKAhY8IzobgkTiMh6ZTfAdQKWn7pM0iS1sojW8H0v6pL9xLNRj0lwbTNHcMDWwdfCCGEq9NuZAiFuKspOg5LeLYKSXxm0vQAHFr","refresh_token":"zu1dbMCuP46NS2hqjmq1ZFPzNrVsSpM9BvFCOizo3GmrE9jRwrY26m1b6JK3Jbud4ejb2xw3MZZc56snT15Y9hWXsmvGSOyKufS0cu8ZKGfVwUjwBcyu7SkcZCcCLUDgq5BJzFJ9ZBv6TKwltdUb8LQAEcDSLLRAXbIHsorStKW0CXqNuL9iSVdKgTXMVkiT2ik8Z4PUMf3daLQSMvwPK69srvYttFNpM3mUMOC2Y2U0AmiRDLYIr3Nsid0hwGsi","expires_in":3600,"token_type":"Bearer"}
 
-If the curl command above is issued with the client_id of the untrusted client (third party client applications that require access to the resource), a 401 error is raised.
+```
+{"access_token":"UeCnysUiLLzxS6tCKkEeMnRxvTsyq5bri9AFUeQV4OEOqoketVZd7HVQpjOeWOLwBhwaWokFXdBsQ34oU0Kcafq8cHgS3lu2Si6I2xvKifo46F8HiU18aicWTzizNocfHVKYYFEhcYftEVEmyvrkcPt1loaAHcKAhY8IzobgkTiMh6ZTfAdQKWn7pM0iS1sojW8H0v6pL9xLNRj0lwbTNHcMDWwdfCCGEq9NuZAiFuKspOg5LeLYKSXxm0vQAHFr","refresh_token":"zu1dbMCuP46NS2hqjmq1ZFPzNrVsSpM9BvFCOizo3GmrE9jRwrY26m1b6JK3Jbud4ejb2xw3MZZc56snT15Y9hWXsmvGSOyKufS0cu8ZKGfVwUjwBcyu7SkcZCcCLUDgq5BJzFJ9ZBv6TKwltdUb8LQAEcDSLLRAXbIHsorStKW0CXqNuL9iSVdKgTXMVkiT2ik8Z4PUMf3daLQSMvwPK69srvYttFNpM3mUMOC2Y2U0AmiRDLYIr3Nsid0hwGsi","expires_in":3600,"token_type":"Bearer"}
+```
+
+Note: if the curl command above is issued with the client_id of the untrusted client (third party client applications that require access to the resource), a 401 error is raised.
 
 Note: the refresh token mecanism is not fully functional yet
 
@@ -58,13 +63,19 @@ Note: the refresh token mecanism is not fully functional yet
 
   * Within the application, redirect the user toward the authentication service (the user will need to identify and allow the client to access his resources)
 
-    http://localhost:1337/oauth/authorize?client_id=CLIENT_ID&response_type=code&redirect_uri=REDIRECT_URIhttp://localhost:1338&scope=http://localhost:1337
+```
+http://localhost:1337/oauth/authorize?client_id=CLIENT_ID&response_type=code&redirect_uri=REDIRECT_URIhttp://localhost:1338&scope=http://localhost:1337
+```
 
   * Once the authorization code is received, exchange it against an access token with the following request
 
-    curl -XPOST -d 'client_id=CLIENT_ID&client_secret=CLIENT_SECRET&grant_type=authorization_code&redirect_uri=REDIRECT_URI&code=CODE' http://localhost:1337/oauth/token
+```
+curl -XPOST -d 'client_id=CLIENT_ID&client_secret=CLIENT_SECRET&grant_type=authorization_code&redirect_uri=REDIRECT_URI&code=CODE' http://localhost:1337/oauth/token
+```
 
-    {"access_token":"72HglTG5tJshVbpnTTCBFw1FNtB4FolLlV5Hntzc4prcAwVpTBXreyFzk9rCBUsaevdsJBY9v4YarEFfvhVLqL5HZmznUI3ajXmNQvlo7k5MD8E0SlVqMdtJeyYBtPa21bPOiFGpkDhoT6dOVecDWhuaT191cwsQT6jv663gRi63t4AXU443GuZKGuQU6Upt9S3BSiLmSMrvL6whvyORl66jFdL7EckRNSYNX3eHUdjcHdxluGWUNuLwhBIMOr3y","refresh_token":"1t3hKouYXAgoeNTtkxyCOBjDyEyr4U99i21B4lkLq5SAl2NQ94UaLXMVEMT93J3D0q8GMhzPIlIQD2mSOcooPSM3txZ2nBdEOa1MX8GYBQcOsN55DLhJo7PxbbTKKqQqGS04ZsVBEQYPd9Xv80aj6tO5w0lP2qfcVq9YdcvLqQ43hk2h4F7RIHUgXhM9lfqLH0K0gsmdtyR2YWzJphbbori8JhAtvBqRzuyiiwFVOzjlK21f9qULKlq7T7ftqQ8S","expires_in":3600,"token_type":"Bearer"}
+```
+{"access_token":"72HglTG5tJshVbpnTTCBFw1FNtB4FolLlV5Hntzc4prcAwVpTBXreyFzk9rCBUsaevdsJBY9v4YarEFfvhVLqL5HZmznUI3ajXmNQvlo7k5MD8E0SlVqMdtJeyYBtPa21bPOiFGpkDhoT6dOVecDWhuaT191cwsQT6jv663gRi63t4AXU443GuZKGuQU6Upt9S3BSiLmSMrvL6whvyORl66jFdL7EckRNSYNX3eHUdjcHdxluGWUNuLwhBIMOr3y","refresh_token":"1t3hKouYXAgoeNTtkxyCOBjDyEyr4U99i21B4lkLq5SAl2NQ94UaLXMVEMT93J3D0q8GMhzPIlIQD2mSOcooPSM3txZ2nBdEOa1MX8GYBQcOsN55DLhJo7PxbbTKKqQqGS04ZsVBEQYPd9Xv80aj6tO5w0lP2qfcVq9YdcvLqQ43hk2h4F7RIHUgXhM9lfqLH0K0gsmdtyR2YWzJphbbori8JhAtvBqRzuyiiwFVOzjlK21f9qULKlq7T7ftqQ8S","expires_in":3600,"token_type":"Bearer"}
+```
 
 Credits
 -------
