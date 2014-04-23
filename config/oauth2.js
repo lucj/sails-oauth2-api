@@ -46,19 +46,6 @@ server.exchange(oauth2orize.exchange.code(function(client, code, redirectURI, do
                        return done(null, false);
                      }
 
-                     /*
-                     AccessToken.create({
-                                    userId: code.userId,
-                                    clientId: code.clientId,
-                                    scope: code.scope
-                                  }).done(function(err, accessToken){
-                                    if (err) {
-                                      return done(err); 
-                                    }
-                                    return done(null, accessToken.token);
-                                  });
-                     */
-
                      // Remove Refresh and Access tokens and create new ones
                      RefreshToken.destroy({ userId: code.userId, clientId: code.clientId }, function (err) {
                        if (err) {
@@ -129,12 +116,15 @@ server.exchange(oauth2orize.exchange.password(function(client, username, passwor
 
 // Exchange refreshToken for access token.
 server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken, scope, done) {
+
     RefreshToken.findOne({ token: refreshToken }, function(err, token) {
+
         if (err) { return done(err); }
         if (!token) { return done(null, false); }
         if (!token) { return done(null, false); }
 
-        User.findById(token.userId, function(err, user) {
+        User.findOne({id: token.userId}, function(err, user) {
+
             if (err) { return done(err); }
             if (!user) { return done(null, false); }
 
@@ -167,9 +157,6 @@ server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken,
         });
     });
 }));
-
-
-
 
 module.exports = {
  express: {

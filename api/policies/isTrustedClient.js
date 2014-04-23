@@ -36,6 +36,8 @@ module.exports = function(req, res, next) {
       }
     } else if(grantType === 'authorization_code'){
       return next();
+    } else if(grantType === 'refresh_token'){
+      return next();
     }
   }
 

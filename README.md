@@ -93,6 +93,26 @@ This returns an access token and a refresh token in a the following json format
 
 Not implemented yet
 
+**Renew an access token using a refresh token**
+
+When the access token is issued, a refresh token and and expires_in indicator are issued as well.  
+Once the access token has expired (do not wait to get an error indicating the expiration but handle the expires_in indicator in your application), the refresh token can be used to get a new access token.  
+
+```
+curl -XPOST -d "client_id=CLIENT_ID&client_secret=CLIENT_SECRET&grant_type=refresh_token&refresh_token=REFRESH_TOKEN" http://localhost:1337/oauth/token
+```
+
+This returns a new access token and a new refresh token, and an expires_in indicator as well
+
+```json
+{
+  "access_token":"ZFCGdpLOKCJNzNtuVAfpEgnKKeaRCVasm2jokMxKHLWALzR80VCj5dB64H7fr2maZQLjoVx44YctMxfEiTKfp5zpXH276Lab3b8a8bynhMAcNRPfJrnyqbPqRdZ9wj018vg6XcJq7wjcVQgZCef59AShu4awvzVTOnG5rlNCk9OSw0Ji5F8XJP8giGEXH3sMM4iqhpP8H2N2bmBHnUXJlLLTo7Ch4rfnDO2X5BlfxLuAQjtc8NoTsqGHYj0Lazux",
+  "refresh_token":"CIRaKr2qtSvxEmpK0YglCR7nRd9MjBf6D5KNvFWPRuLTBln84iC6SUl0MBgd2O2RGhpQ1QuxTucjKwbuyqCaKSznj1CJVckXZaIjHOEYBojyOR3Mr3BHxoPmmsqLSAmoE65y3h0E21l18lmmdwvn4gSCWG4uDKHCtEAQSYuJFeojiEikWMCKV5pxiowhnPWUR4hRfRJc6Yj0iTnKnKRf9PhqiKIB27Ut1WnUrxEUeCEJLvwbaWk9H7uuki6Y5cJJ",
+  "expires_in":3600,
+  "token_type":"Bearer"
+}
+```
+
 Credits
 -------
 
