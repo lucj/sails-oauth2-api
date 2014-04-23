@@ -19,7 +19,7 @@ Status
 - available flows (not fully tested yet)
   * Resource owner password
   * Authorization code
-  * Implicit flow (not developed yet)
+  * Implicit flow (not funcctional yet)
 
 - models implemented
   * User: resource owner
@@ -91,7 +91,23 @@ This returns an access token and a refresh token in a the following json format
 
 **Implicit flow**
 
-Not implemented yet
+
+Not implemented yet. There is an error with response_type set to token that is not recognized yet.
+
+
+This flow is less secure and can be used if the Authorization code flow cannot be used
+
+The following request needs to be sent:
+
+```
+http://localhost:1337/oauth/authorize?client_id=CLIENT_ID&response_type=token&redirect_uri=REDIRECT_URI&scope=http://localhost:1337
+```
+
+The user will then be redirected towards
+
+```
+http://REDIRECT_URI/#token_type=bearer&access_token=ACCESS_TOKEN&scope=SCOPE&expires_in=EXPIRES_IN
+```
 
 **Renew an access token using a refresh token**
 
