@@ -35,7 +35,7 @@ module.exports.bootstrap = function (cb) {
     } else {
       if(!client){
         Client.create({name : 'trustedTestClient',
-                       redirectURI: 'http://localhost:' + sails.config.port,
+                       redirectURI: 'http://localhost:1338',
                        trusted: true
         }).done(function(err, client){
           if(err){
@@ -44,12 +44,14 @@ module.exports.bootstrap = function (cb) {
             console.log("trustedTestClient created");
             console.log("- client_id: " + client.clientId);
             console.log("- client_secret: " + client.clientSecret);
+            console.log("- redirectURI: " + client.redirectURI);
           }
         });
       } else {
         console.log('trustedTestClient already exists');
         console.log("- client_id: " + client.clientId);
         console.log("- client_secret: " + client.clientSecret);
+        console.log("- redirectURI: " + client.redirectURI);
       }
     }
   }); 
@@ -61,7 +63,7 @@ module.exports.bootstrap = function (cb) {
     } else {
       if(!client){
         Client.create({name : 'untrustedTestClient',
-                       redirectURI: 'http://localhost:' + sails.config.port
+                       redirectURI: 'http://localhost:1339'
         }).done(function(err, client){
           if(err){
             console.log(err.message);
@@ -69,12 +71,14 @@ module.exports.bootstrap = function (cb) {
             console.log("untrustedTestClient created");
             console.log("- client_id: " + client.clientId);
             console.log("- client_secret: " + client.clientSecret);
+            console.log("- redirectURI: " + client.redirectURI);
           }
         });
       } else {
         console.log('untrustedTestClient already exists');
         console.log("- client_id: " + client.clientId);
         console.log("- client_secret: " + client.clientSecret);
+        console.log("- redirectURI: " + client.redirectURI);
       }
     }
   }); 

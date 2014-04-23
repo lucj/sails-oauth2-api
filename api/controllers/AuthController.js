@@ -9,7 +9,8 @@ var passport = require('passport');
 
 module.exports = {
 
-	process: function(req,res){
+	login: function(req,res){
+
 		passport.authenticate(
 		    'local',
 		    function(err, user, info)

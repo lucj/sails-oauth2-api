@@ -19,9 +19,9 @@
 
 <div class="container clearfix">
     <div class="main">
-<p>Hey <%= user.name %>!</p>
-<p><b><%= cli.name %></b> is requesting access to your account.</p>
-<p><%= cli.text %></p>
+<p>Hey <%= user.email %>!</p>
+<p><b><%= client.name %></b> is requesting access to your account.</p>
+<p><%= client.text %></p>
 <p>Do you approve?</p>
 
 <form action="/oauth/authorize/decision" method="post">

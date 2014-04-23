@@ -27,11 +27,13 @@ var bcrypt = require('bcrypt'),
      new LocalStrategy(
 
      function (username, password, done) {
+
          process.nextTick(
+
 
          function () {
              User.findOne({
-                 name: username
+                 email: username
              }).done(function (err, user) {
                  if (err) {
                      console.log(err);
@@ -129,6 +131,7 @@ function (clientId, clientSecret, done) {
  */
 passport.use(new BearerStrategy(
   function(accessToken, done) {
+
     AccessToken.findOne({token:accessToken}, function(err, token) {
       if (err) { return done(err); }
       if (!token) { return done(null, false); }
