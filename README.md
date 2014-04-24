@@ -30,6 +30,7 @@ Status
 
 - controllers
   * InfoController: a basic controller that will be called to test the OAuth mecanism
+  * Client controller: used to manage client (only create and list). This controller will be used by administrators
 
 - authentication
   * config/passport.js: defining passport strategy
