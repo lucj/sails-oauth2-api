@@ -31,6 +31,24 @@ server.grant(oauth2orize.grant.code(function(client, redirectURI, user, ares, do
                   });
 }));
 
+// Generate access token for Implicit flow
+// Only access token is generated in this flow, no refresh token is issued
+server.grant(oauth2orize.grant.token(function(client, user, ares, done) {
+  AccessToken.destroy({ userId: user.id, clientId: client.clientId }, function (err) {
+    if (err){
+      return done(err);
+    } else {
+      AccessToken.create({ userId: user.id, clientId: client.clientId }, function(err, accessToken){
+        if(err) {
+          return done(err);
+        } else {
+          return done(null, accessToken.token);
+        }
+      });
+    }
+  });
+}));
+
 // Exchange authorization code for access token
 server.exchange(oauth2orize.exchange.code(function(client, code, redirectURI, done) {
   AuthCode.findOne({
@@ -179,6 +197,7 @@ module.exports = {
             return done(null, client, client.redirectURI);
           });
         }),
+        server.errorHandler(),
         function(req, res) {
           res.render('dialog', { transactionID: req.oauth2.transactionID,
                                  user: req.user,

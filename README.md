@@ -16,10 +16,10 @@ Several purposes of this application:
 Status
 ------
 
-- available flows (not fully tested yet)
-  * Resource owner password
+- available flows
   * Authorization code
-  * Implicit flow (not funcctional yet)
+  * Resource owner password
+  * Implicit flow (not functional yet)
 
 - models implemented
   * User: resource owner
@@ -43,6 +43,31 @@ Details
 When lifting the sails application, a default user and 2 defaults clients are created (among which one is trusted and the other is not).
 In the console, the client_id and client_secret of each client are displayed and the default user credential as well.
 
+**Authorization code grant**
+
+Within the application, redirect the user toward the authentication service (the user will need to identify and allow the client to access his resources)
+
+```
+http://localhost:1337/oauth/authorize?client_id=CLIENT_ID&response_type=code&redirect_uri=REDIRECT_URI&scope=http://localhost:1337
+```
+
+Once the authorization code is received, exchange it against an access token with the following request
+
+```
+curl -XPOST -d 'client_id=CLIENT_ID&client_secret=CLIENT_SECRET&grant_type=authorization_code&redirect_uri=REDIRECT_URI&code=CODE' http://localhost:1337/oauth/token
+```
+
+This returns an access token and a refresh token in a the following json format
+
+```json
+{
+  "access_token":"72HglTG5tJshVbpnTTCBFw1FNtB4FolLlV5Hntzc4prcAwVpTBXreyFzk9rCBUsaevdsJBY9v4YarEFfvhVLqL5HZmznUI3ajXmNQvlo7k5MD8E0SlVqMdtJeyYBtPa21bPOiFGpkDhoT6dOVecDWhuaT191cwsQT6jv663gRi63t4AXU443GuZKGuQU6Upt9S3BSiLmSMrvL6whvyORl66jFdL7EckRNSYNX3eHUdjcHdxluGWUNuLwhBIMOr3y",
+  "refresh_token":"1t3hKouYXAgoeNTtkxyCOBjDyEyr4U99i21B4lkLq5SAl2NQ94UaLXMVEMT93J3D0q8GMhzPIlIQD2mSOcooPSM3txZ2nBdEOa1MX8GYBQcOsN55DLhJo7PxbbTKKqQqGS04ZsVBEQYPd9Xv80aj6tO5w0lP2qfcVq9YdcvLqQ43hk2h4F7RIHUgXhM9lfqLH0K0gsmdtyR2YWzJphbbori8JhAtvBqRzuyiiwFVOzjlK21f9qULKlq7T7ftqQ8S",
+  "expires_in":3600,
+  "token_type":"Bearer"
+}
+```
+
 **Resource owner password flow** (this flow is only available if the client is among the trusted clients)
 
 Issue the following curl request to get an access token
@@ -64,40 +89,16 @@ This returns an access token and a refresh token in a the following json format
 
 Note: if the curl command above is issued with the client_id of the untrusted client (third party client applications that require access to the resource), a 401 error is raised.
 
-**Authorization code grant**
-
-Within the application, redirect the user toward the authentication service (the user will need to identify and allow the client to access his resources)
-
-```
-http://localhost:1337/oauth/authorize?client_id=CLIENT_ID&response_type=code&redirect_uri=REDIRECT_URIhttp://localhost:1338&scope=http://localhost:1337
-```
-
-Once the authorization code is received, exchange it against an access token with the following request
-
-```
-curl -XPOST -d 'client_id=CLIENT_ID&client_secret=CLIENT_SECRET&grant_type=authorization_code&redirect_uri=REDIRECT_URI&code=CODE' http://localhost:1337/oauth/token
-```
-
-This returns an access token and a refresh token in a the following json format
-
-```json
-{
-  "access_token":"72HglTG5tJshVbpnTTCBFw1FNtB4FolLlV5Hntzc4prcAwVpTBXreyFzk9rCBUsaevdsJBY9v4YarEFfvhVLqL5HZmznUI3ajXmNQvlo7k5MD8E0SlVqMdtJeyYBtPa21bPOiFGpkDhoT6dOVecDWhuaT191cwsQT6jv663gRi63t4AXU443GuZKGuQU6Upt9S3BSiLmSMrvL6whvyORl66jFdL7EckRNSYNX3eHUdjcHdxluGWUNuLwhBIMOr3y",
-  "refresh_token":"1t3hKouYXAgoeNTtkxyCOBjDyEyr4U99i21B4lkLq5SAl2NQ94UaLXMVEMT93J3D0q8GMhzPIlIQD2mSOcooPSM3txZ2nBdEOa1MX8GYBQcOsN55DLhJo7PxbbTKKqQqGS04ZsVBEQYPd9Xv80aj6tO5w0lP2qfcVq9YdcvLqQ43hk2h4F7RIHUgXhM9lfqLH0K0gsmdtyR2YWzJphbbori8JhAtvBqRzuyiiwFVOzjlK21f9qULKlq7T7ftqQ8S",
-  "expires_in":3600,
-  "token_type":"Bearer"
-}
-```
-
 **Implicit flow**
 
 
-Not implemented yet. There is an error with response_type set to token that is not recognized yet.
+Not fully implemented yet...
 
 
-This flow is less secure and can be used if the Authorization code flow cannot be used
+This flow is less secure and can be used if the Authorization code flow cannot be used. This clients using this flow are typically javascript client in a browser.
+Each time the access token is expired, a new request must be done to get a new one.
 
-The following request needs to be sent:
+Within the application, redirect the user toward the authentication service (the user will need to identify and allow the client to access his resources)
 
 ```
 http://localhost:1337/oauth/authorize?client_id=CLIENT_ID&response_type=token&redirect_uri=REDIRECT_URI&scope=http://localhost:1337
@@ -128,6 +129,11 @@ This returns a new access token and a new refresh token, and an expires_in indic
   "token_type":"Bearer"
 }
 ```
+
+Examples
+--------
+
+2 dummy clients are available in the examples folder, they are just 2 very basic http server running on port 1338 (for the trusted one) and 1339 (for the untrusted one).
 
 Credits
 -------
