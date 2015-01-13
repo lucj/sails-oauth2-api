@@ -90,6 +90,13 @@ This returns an access token and a refresh token in a the following json format
 
 Note: if the curl command above is issued with the client_id of the untrusted client (third party client applications that require access to the resource), a 401 error is raised.
 
+Once the access_token is retrieved, it needs to be passed in the Authorization header of each request to the API as in the following example:
+
+```
+curl -H 'Authorization: Bearer ACCESS_TOKEN' -GET "http://localhost:1337/api/info
+```
+
+
 **Implicit flow**
 
 
