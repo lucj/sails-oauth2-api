@@ -177,7 +177,7 @@ server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken,
 }));
 
 module.exports = {
- express: {
+ http: {
     customMiddleware: function(app){
 
       // Initialize passport

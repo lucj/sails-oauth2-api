@@ -16,7 +16,7 @@ module.exports.bootstrap = function (cb) {
       User.create({
   	email: 'me@gmail.com',
   	password: 'password',
-      }).done(function(err,user){
+      }).exec(function(err,user){
   	console.log("Default user created");
         console.log("- username: " + user.email);
         console.log("- password: password");
@@ -37,7 +37,7 @@ module.exports.bootstrap = function (cb) {
         Client.create({name : 'trustedTestClient',
                        redirectURI: 'http://localhost:1338',
                        trusted: true
-        }).done(function(err, client){
+        }).exec(function(err, client){
           if(err){
             console.log(err.message);
           } else {
@@ -64,7 +64,7 @@ module.exports.bootstrap = function (cb) {
       if(!client){
         Client.create({name : 'untrustedTestClient',
                        redirectURI: 'http://localhost:1339'
-        }).done(function(err, client){
+        }).exec(function(err, client){
           if(err){
             console.log(err.message);
           } else {
