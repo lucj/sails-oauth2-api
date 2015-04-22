@@ -16,20 +16,19 @@
  */
 
 module.exports = {
-    
-  
+
   /**
    * Action blueprints:
    *    `/client/create`
    */
    create: function (req, res) {
-    
+
     var name = req.param("name");
     var redirectURI = req.param("redirectURI");
 
     Client.create({ name : name,
                     redirectURI: redirectURI
-    }).done(function(err, client){
+    }).exec(function(err, client){
       if(err){
         return res.send(500, {error: err.message});
       } else {
@@ -61,5 +60,5 @@ module.exports = {
    */
   _config: {}
 
-  
+
 };

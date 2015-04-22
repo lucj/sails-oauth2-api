@@ -25,7 +25,7 @@ server.grant(oauth2orize.grant.code(function(client, redirectURI, user, ares, do
                     redirectURI: redirectURI,
                     userId: user.id,
                     scope: ares.scope
-                  }).done(function(err,code){
+                  }).exec(function(err,code){
                     if(err){return done(err,null);}
                     return done(null,code.code);
                   });
@@ -53,7 +53,7 @@ server.grant(oauth2orize.grant.token(function(client, user, ares, done) {
 server.exchange(oauth2orize.exchange.code(function(client, code, redirectURI, done) {
   AuthCode.findOne({
                      code: code
-                   }).done(function(err,code){
+                   }).exec(function(err,code){
                      if(err || !code) {
                        return done(err);
                      }
@@ -101,7 +101,7 @@ server.exchange(oauth2orize.exchange.password(function(client, username, passwor
         if (!user) { return done(null, false); }
 
         var pwdCompare = bcrypt.compareSync(password, user.hashedPassword);
-        if(!pwdCompare){ return done( null, false) };
+        if(!pwdCompare){ return done( null, false); };
 
         // Remove Refresh and Access tokens and create new ones
         RefreshToken.destroy({ userId: user.id, clientId: client.clientId }, function (err) {
