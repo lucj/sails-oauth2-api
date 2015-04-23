@@ -11,7 +11,7 @@ module.exports = {
   attributes: {
 
         code: {
-            type: 'string',
+            type: 'string'
         },
         userId: {
             type: 'string',

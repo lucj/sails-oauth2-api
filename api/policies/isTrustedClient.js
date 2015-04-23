@@ -26,6 +26,9 @@ module.exports = function(req, res, next) {
           if(err){
             return res.send(500, err.message);
           } else {
+	    if(!client){
+	      return res.send(404, "Client with client id "+ clientId + " not found");
+	    }
             if(client.trusted){
               return next();
             } else {

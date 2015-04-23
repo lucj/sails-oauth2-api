@@ -34,7 +34,7 @@ var bcrypt = require('bcrypt'),
          function () {
              User.findOne({
                  email: username
-             }).done(function (err, user) {
+             }).exec(function (err, user) {
                  if (err) {
                      console.log(err);
                      return;
@@ -147,11 +147,11 @@ passport.use(new BearerStrategy(
          return done(null, false, { message: 'Token expired' });
        }
 
-       var info = {scope: '*'}
+       var info = {scope: '*'};
        User.findOne({
          id: token.userId
        })
-       .done(function (err, user) {
+       .exec(function (err, user) {
          User.findOne({
            id: token.userId
          },done(err,user,info));
