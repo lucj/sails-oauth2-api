@@ -206,6 +206,8 @@ module.exports = {
         }
       );
 
+      app.post('/login', passport.authenticate('local', { successReturnToOrRedirect: '/', failureRedirect: '/login' }));
+
       app.post('/oauth/authorize/decision',
         login.ensureLoggedIn(), 
         server.decision());

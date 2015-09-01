@@ -18,10 +18,6 @@ module.exports.routes = {
   'get /login': {
     view: 'login'
   },
-  'post /login': {
-    controller: 'Auth',
-    action: 'login'
-  },
   'get /logout': {
     controller: 'Auth',
     action: 'logout'
