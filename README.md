@@ -16,6 +16,8 @@ Several purposes of this application:
 Status
 ------
 
+- Migrated to sails 0.11
+
 - available flows
   * Authorization code
   * Resource owner password
