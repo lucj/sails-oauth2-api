@@ -24,7 +24,7 @@ module.exports = {
   },
 
   beforeCreate: function(values, next){
-    values.token = UtilsService.uid(256);
+    values.token = UtilsService.uid(255);
     next();
   }
 
